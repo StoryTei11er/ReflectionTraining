@@ -21,13 +21,13 @@ public class Main {
             method.setAccessible(true);
             if (method.isAnnotationPresent(MyDogAnnotation.class)) {
                 try {
+                    //Тут выпадет ошибка "IllegalArgumentException: object is not an instance of declaring class"
                     method.invoke(proxyDog);
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
-                    //Тут выпадет ошибка "IllegalArgumentException: object is not an instance of declaring class"
                     method.invoke(dog);
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
