@@ -1,9 +1,7 @@
 package com.task_2;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 
-public class ReflectionDog implements InvocationHandler {
+public class ReflectionDog implements DogBehavior {
 
     private DogBehavior dog;
 
@@ -12,8 +10,14 @@ public class ReflectionDog implements InvocationHandler {
     }
 
     @Override
-    public  Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("privet iz refleksii");
-        return method.invoke(dog);
+    public void wagTheTail() {
+        System.out.println("Privet iz refleksii");
+        dog.wagTheTail();
+    }
+
+    @Override
+    public void sayGaw() {
+        System.out.println("Privet iz refleksii");
+        dog.sayGaw();
     }
 }

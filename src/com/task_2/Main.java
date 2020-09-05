@@ -10,19 +10,21 @@ public class Main {
 
     public static void main(String[] args) {
         DogBehavior dog = new Dog();
+        DogBehavior reflectionDog = new ReflectionDog(dog);
+        reflectionDog.sayGaw();
 
-        DogBehavior proxyDog = (DogBehavior) Proxy.newProxyInstance(Dog.class.getClassLoader(),
-                Dog.class.getInterfaces(),
-                new ReflectionDog(dog));
-
-
+//        DogBehavior proxyDog = (DogBehavior) Proxy.newProxyInstance(Dog.class.getClassLoader(),
+//                                                                    Dog.class.getInterfaces(),
+//                                                                    new ReflectionDog(dog));
+//
+//
         Method[] methods = dog.getClass().getDeclaredMethods();
         for (Method method : methods) {
             method.setAccessible(true);
             if (method.isAnnotationPresent(MyDogAnnotation.class)) {
                 try {
                     //Тут выпадет ошибка "IllegalArgumentException: object is not an instance of declaring class"
-                    method.invoke(proxyDog);
+                    method.invoke(reflectionDog);
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
